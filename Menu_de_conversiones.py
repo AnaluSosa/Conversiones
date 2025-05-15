@@ -3,11 +3,11 @@ from tkinter import messagebox
 from tkinter import ttk
 
 
-# === Clase Principal ===
 class crear_ventana_principal:
     def __init__(self, ventana):
         self.ventana = ventana
         self.ventana.title("Conversor de Unidades")
+        self.ventana.configure(bg="#E8F0FE")
         self.crear_menu()
 
     def crear_menu(self):
@@ -38,27 +38,31 @@ class crear_ventana_principal:
             ("Horas a Días", lambda x: x / 24)
         ])
 
-# === Clase para ventanas de conversión ===
+
 class ConversorVentana:
     def __init__(self, tipo, opciones):
         self.ventana = tk.Toplevel()
         self.ventana.title(f"Conversión de {tipo}")
+        self.ventana.configure(bg="#FFFFFF")
 
-        self.label_tipo = tk.Label(self.ventana, text=f"Conversión de {tipo}", font=("Arial", 14))
+        self.label_tipo = tk.Label(self.ventana, text=f"Conversión de {tipo}",
+                                   font=("Arial", 16), bg="#E8F0FE", fg="#202124")
         self.label_tipo.pack(pady=10)
 
         self.combo = ttk.Combobox(self.ventana, values=[op[0] for op in opciones], state="readonly")
         self.combo.current(0)
         self.combo.pack(pady=5)
 
-        self.entry_valor = tk.Entry(self.ventana)
+        self.entry_valor = tk.Entry(self.ventana, bg="#FFFFFF", fg="#202124", justify='center')
         self.entry_valor.pack(pady=5)
         self.entry_valor.insert(0, "Ingrese un valor")
 
-        self.boton_convertir = tk.Button(self.ventana, text="Convertir", command=self.convertir)
+        self.boton_convertir = tk.Button(self.ventana, text="Convertir", bg="#4285F4", fg="#FFFFFF",
+                                         activebackground="#3367D6", command=self.convertir)
         self.boton_convertir.pack(pady=5)
 
-        self.resultado_label = tk.Label(self.ventana, text="Resultado: ")
+        self.resultado_label = tk.Label(self.ventana, text="Resultado: ", 
+                                        bg="#4285F4", fg="#FFFFFF", font=("Arial", 14))
         self.resultado_label.pack(pady=5)
 
         self.opciones = opciones
@@ -73,8 +77,9 @@ class ConversorVentana:
         except ValueError:
             messagebox.showerror("Error", "Por favor, ingrese un número válido.")
 
-# === Ejecutar la aplicación ===
+
 if __name__ == "__main__":
     ventana = tk.Tk()
+    ventana.geometry("400x300")
     app = crear_ventana_principal(ventana)
     ventana.mainloop()
